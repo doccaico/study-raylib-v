@@ -24,3 +24,5 @@ $ v -cc msvc -prod -subsystem windows lifegame.v
 - [R] - Restart
 - [B] - Change Background Color
 - [C] - Change Cell Color
+
+![image](https://github.com/user-attachments/assets/514cf7d6-d4f7-47c5-8725-5e122eb270f6)
