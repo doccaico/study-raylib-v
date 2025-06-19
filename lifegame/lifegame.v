@@ -93,16 +93,16 @@ fn (mut app App) next_generation() {
 }
 
 fn main() {
+	raylib.init_window(screen_width, screen_height, window_title)
+	defer { raylib.close_window() }
+
+	raylib.set_target_fps(fps)
+
 	rand.seed([u32(time.now().nanosecond), 0])
 
 	mut app := App{}
 	app.new_game()
 	app.randomize() or { panic('failed to randomize') }
-
-	raylib.init_window(screen_width, screen_height, window_title)
-	defer { raylib.close_window() }
-
-	raylib.set_target_fps(fps)
 
 	for !raylib.window_should_close() {
 		if raylib.is_key_pressed(int(raylib.KeyboardKey.key_r)) {

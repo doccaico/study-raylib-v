@@ -1,7 +1,7 @@
 module main
 
-// import rand
-// import time
+import rand
+import time
 import raylib
 
 const window_title = $if prod { 'flappy' } $else { 'flappy (debug)' }
@@ -94,19 +94,25 @@ fn (mut app App) load_texture() {
 
 	for file_name in file_names {
 		path := '${assets_path}/${file_name}.${suffix}'
-		println(path)
-
-		asset := raylib.load_image(path)
-
-		// BUG??
-		app.textures[file_name] = raylib.load_texture_from_image(asset)
-
-		// raylib.unload_image(asset)
+		app.textures[file_name] = raylib.load_texture(path)
 	}
 }
 
 fn main() {
+	raylib.init_window(screen_width, screen_height, window_title)
+	defer { raylib.close_window() }
+
+	raylib.set_target_fps(fps)
+
+	rand.seed([u32(time.now().nanosecond), 0])
+
 	mut app := App{}
 	app.new_game()
-	println('Hello World!')
+	// app.randomize() or { panic('failed to randomize') }
+
+	for !raylib.window_should_close() {
+		raylib.begin_drawing()
+		raylib.clear_background(raylib.black)
+		raylib.end_drawing()
+	}
 }
